@@ -1,0 +1,3 @@
+# Cubelator
+
+Simple calculator
