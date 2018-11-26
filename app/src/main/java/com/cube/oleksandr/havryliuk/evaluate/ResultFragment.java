@@ -13,7 +13,7 @@ import android.widget.TextView;
 import java.util.Objects;
 
 
-public class ResultFragment extends Fragment {
+public class ResultFragment extends Fragment implements View.OnLongClickListener {
 
     private static final int ONE_RESULT_FIELD = 1;
     private static final int TWO_RESULT_FIELD = 2;
@@ -35,10 +35,13 @@ public class ResultFragment extends Fragment {
 
         secondResult = view.findViewById(R.id.tv_result_2);
         secondResult.setOnClickListener((MainActivity) getActivity());
+        secondResult.setOnLongClickListener(this);
         firstResult = view.findViewById(R.id.tv_result_1);
         firstResult.setOnClickListener((MainActivity) getActivity());
+        firstResult.setOnLongClickListener(this);
         mainResult = view.findViewById(R.id.tv_main_result);
         mainResult.setOnClickListener((MainActivity) getActivity());
+        mainResult.setOnLongClickListener(this);
 
         split(mainResult);
         return view;
@@ -115,5 +118,25 @@ public class ResultFragment extends Fragment {
 
     public TextView getSecondResult() {
         return secondResult;
+    }
+
+    @Override
+    public boolean onLongClick(View v) {
+        switch (v.getId()) {
+            case (R.id.tv_result_1):
+                if(firstResult != null)
+                ((MainActivity) getActivity()).addNumber(firstResult.getText().toString());
+                break;
+            case (R.id.tv_result_2):
+                if(secondResult != null)
+                ((MainActivity) getActivity()).addNumber(secondResult.getText().toString());
+                break;
+            case (R.id.tv_main_result):
+                if(mainResult != null)
+                ((MainActivity) getActivity()).addNumber(mainResult.getText().toString());
+                break;
+            default:
+        }
+        return false;
     }
 }

@@ -90,6 +90,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         currentResultField.setText(String.valueOf(calc.calculate(expresion)));
     }
 
+    public void setCurrentResultField(TextView currentResultField){
+        this.currentResultField = currentResultField;
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        // Checks the orientation of the screen
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            //TODO: meke one result field, biggest button
+        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
+            //TODO; go to default
+        }
+    }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -168,19 +184,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         fieldTextView.setText(expresion);
     }
-    public void setCurrentResultField(TextView currentResultField){
-       this.currentResultField = currentResultField;
+
+    public void addNumber(String  number){
+        expresion+= number;
     }
 
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-
-        // Checks the orientation of the screen
-        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            //TODO: meke one result field, biggest button
-        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
-            //TODO; go to default
-        }
-    }
 }
