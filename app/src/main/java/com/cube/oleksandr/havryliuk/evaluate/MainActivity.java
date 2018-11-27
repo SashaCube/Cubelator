@@ -11,6 +11,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private String expresion;
     private TextView fieldTextView;
+    private TextView prevFieldTextView;
 
     private TextView currentResultField;
     private ResultFragment resultFragment;
@@ -84,10 +85,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnSplit.setOnClickListener(this);
 
         fieldTextView = findViewById(R.id.tv_field);
-    }
-
-    public void putResult(){
-        currentResultField.setText(String.valueOf(calc.calculate(expresion)));
+        prevFieldTextView = findViewById(R.id.tv_field_2);
+        prevFieldTextView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                expresion += prevFieldTextView.getText().toString();
+                fieldTextView.setText(expresion);
+                return false;
+            }
+        });
     }
 
     public void setCurrentResultField(TextView currentResultField){
@@ -176,7 +182,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 resultFragment.mark(resultFragment.getSecondResult());
                 break;
             case (R.id.tv_result_b):
-                putResult();
+                currentResultField.setText(String.valueOf(calc.calculate(expresion)));
+                prevFieldTextView.setText(expresion);
                 expresion = "";
                 break;
             default:
